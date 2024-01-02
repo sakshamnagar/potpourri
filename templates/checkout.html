@@ -1,0 +1,268 @@
+{% extends "index.html" %}
+{% load static %}
+{% load cart_tag %}
+{% block content %}
+
+<style>
+.row .col-lg-6{
+      background-color: lightgrey;
+    display: block;
+    padding: 39px;
+    border-radius: 5px;
+    border: 3px solid #e03550;
+    margin-right: 10%;
+}
+.myord{
+    background-color: lightgrey;
+    display: block;
+    padding: 39px;
+    border-radius: 5px;
+    border: 3px solid #e03550;
+}
+input[type="text"],input[type="password"],text-area{
+            border: 3px solid;
+}
+input:focus,text-area:focus{
+    border:3px solid #e03550;
+}
+td{
+  
+    text-align: left;
+    padding: 9px;
+    display: table-cell;
+    border:2px solid grey;
+}
+th{
+    text-align: left;
+    padding: 9px;
+    display: table-cell; border:2px solid grey;
+}
+</style>
+<!-- HEADING-BANNER END -->
+<div class="heading-banner-area overlay-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-banner">
+                    <div class="heading-banner-title">
+                        <h2>Checkout</h2>
+                    </div>
+                    <div class="breadcumbs pb-15">
+                        <ul>
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li>Checkout</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div><br><br>
+<!-- HEADING-BANNER END -->
+
+ <script type="text/javascript">
+        $(document).ready(function(){
+          var empsalary;
+          var totalsalary = 0;
+
+          $('td:nth-child(3)').each(function(){
+            empsalary=$(this).html();
+            totalsalary+=parseInt(empsalary);
+            $('#totalsalary').text(totalsalary);
+            
+          })
+        });
+      </script>
+ <main>
+
+            
+            <!-- coupon-area start -->
+            
+            
+            <!-- checkout-area start -->
+
+            {% if request.session.cart|length < 1 %} 
+ <section class="checkout-area pb-70">
+                <div class="container">
+
+            <h1>Your Cart Is Empty </h1>
+            <a href="{% url 'productview' %}">Back to Shopping Page</a>
+</div>
+</section>
+
+             {% else %}
+             
+
+            <section class="checkout-area pb-70">
+                <div class="container">
+                    <form action="#" method="post">
+
+                        {% csrf_token %}
+                        <input type="hidden" name="itemsJson" id="itemsJson" value="{{ request.user }}">
+
+{% for key,value in request.session.cart.items %}
+                        
+                        <input type="hidden" name="product_id"  value="{{ value.product_id }}">
+                        
+                        <input type="hidden" name="product_name"  value="{{ value.name }}">
+
+                        <input type="hidden" name="product_total"  value="{{ value.price|multiply:value.quantity }}">
+
+                        {% endfor %}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="checkbox-form">
+                                    <h3>Billing Details</h3>
+                                    <div class="row">
+                                        
+                                        <div class="col-md-6">
+                                            <div class="checkout-form-list">
+                                                <label>First Name <span class="required">*</span></label>
+                                                <input type="text" id="name" name="name" placeholder="Name" required="">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="checkout-form-list">
+                                                <label>Email<span class="required">*</span></label>
+                                                <input type="text" id="email" name="email" placeholder="Name" required="">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>Address <span class="required">*</span></label>
+                                                <input type="text" name='address1' placeholder="Street address" required=""/>
+                                            </div>
+                                        </div>
+
+                                         
+
+                                       
+                                        <div class="col-md-12">
+                                            <div class="checkout-form-list">
+                                                <label>Town / City <span class="required">*</span></label>
+                                                <input type="text" name="city" placeholder="Town / City" required=""/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="checkout-form-list">
+                                                <label>State <span class="required">*</span></label>
+                                                <input type="text" name="state" placeholder="State" required=""/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="checkout-form-list">
+                                                <label>Postcode / Zip <span class="required">*</span></label>
+                                                <input type="text" name="zip_code" placeholder="Postcode / Zip" required=""/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6">
+                                            <div class="checkout-form-list">
+                                                <label>Phone <span class="required">*</span></label>
+                                                <input type="text" name="phone" placeholder="Phone no" required=""/>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-lg-4 myord">
+                                <div class="your-order mb-30 ">
+                                    <h3>Your order</h3>
+                                    <div class="your-order-table table-responsive">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-name">Product</th>
+                                                    <th>Qty</th>
+                                                    <th class="product-total">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for key,value in request.session.cart.items %}
+                                                <tr>
+                        <td><span data-prefix>{{ value.name }}</span></td> 
+                       
+                        <td><span data-prefix>{{ value.quantity }}</span></td>
+                        <td>{{ value.price|multiply:value.quantity }}</td>
+                    
+                    </tr>
+                                                {% endfor %}
+                                                
+                                                
+                                            </tbody>
+                                          
+                                        </table>
+                                        <table>
+                                         <tr>
+                                                    <th style="padding: 0px 44px;">Order Total</th>
+                                                    <td id='totalsalary' style="border:none;"></td>
+                                                </tr>
+                                        </table>
+                                    </div>
+                                    <br>
+                                    <div class="payment-method">
+                                        <div class="accordion" id="accordionExample">
+                                           
+                                            <div class="card">
+                                                <div class="card-header" id="headingTwo">
+                                                    <h5 class="mb-0">
+                <input type="radio" class="btn-link collapsed" name="payment_mode" value="cod" checked=""  type="button" data-toggle="collapse"
+                                                            data-target="#collapseTwo" aria-expanded="false"
+                                                            aria-controls="collapseTwo">
+                                                            COD
+                                                        </button>
+                                                    </h5>
+                                                </div><br>
+                                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
+                                                    data-parent="#accordionExample">
+                                                    <div class="card-body">
+                                                        Please Pay cash on delivery.
+                                                    </div>
+                                                </div>
+                                            </div><br>
+                                            <div class="card">
+                                                <div class="card-header" id="headingThree">
+                                                    <h5 class="mb-0">
+                                                        <input type="radio" name="payment_mode"  value="paytm" class="btn-link collapsed" type="button" data-toggle="collapse"
+                                                            data-target="#collapseThree" aria-expanded="false"
+                                                            aria-controls="collapseThree">
+                                                            Paytm
+                                                        </button>
+                                                    </h5>
+                                                </div><br>
+                                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
+                                                    data-parent="#accordionExample">
+                                                    <div class="card-body">
+                                                        Pay via Paytm ; if you don’t make cash on delivery  when pay from paytm.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="order-button-payment mt-20">
+                                            <button type="submit" class="button-one submit-button mt-15" data-text="place order">Place order</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            {% endif %} 
+            <!-- checkout-area end -->
+
+
+            <!-- instagram-area-start -->
+            
+        </main>
+
+
+
+
+{% endblock %}
+
+

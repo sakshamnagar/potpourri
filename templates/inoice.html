@@ -1,0 +1,146 @@
+{% load static %}
+{% load cart_tag %}
+
+
+
+<html>
+<center>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Invoice generate Date:
+<input type="datetime" id="currentDate" >
+<!--Invoice generate Time:
+<input type="datetime" id="currentTime">-->
+<script>
+  var today = new Date();
+  var date = today.getDate()+'-'+(today.getMonth()+1)+'-'+today.getFullYear();
+  document.getElementById("currentDate").value = date;
+</script>
+</center>
+<br>
+
+	<head>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<meta charset="utf-8">
+		<title>Invoice</title>
+		<link rel="stylesheet" href="{% static '/css/style.css' %}">
+		<link rel="license" href="https://www.opensource.org/licenses/mit-license/">
+		<script src="{% static '/js/script.js' %}"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+			  var empsalary;
+			  var totalsalary = 0;
+		
+			  $('td:nth-child(4)').each(function(){
+				empsalary=$(this).html();
+				totalsalary+=parseInt(empsalary);
+				$('#totalsalary').text(totalsalary);
+				
+			   
+			  })
+			});
+		  </script>
+		  
+	</head>
+	
+	<body>
+		<header>
+			<h1>Invoice</h1>
+		
+				<div class="logo">
+					<a href="{% url 'index' %}"><h1 class="fw-bold" style="font-family: fantasy;">PotPourri</h1></a>
+				</div>
+			
+			<address data-prefix>
+			<p>From ,</p>
+			<p>Potpourri</p>
+			
+				
+			<br>
+			<br>
+			<p>To ,</p>
+			<p>{{ request.user.get_full_name  }}</p>
+			<p>{{ request.user.get_address    }}<br></p>
+			<p>{{ request.user.contact_number }}</p>
+			</address> 
+			
+			<span><img alt="" src="http://www.jonathantneal.com/examples/invoice/logo.png"><input type="file" accept="image/*"></span>
+
+			
+			
+		</header>
+		<article>
+		
+			<table class="inventory">
+				<thead>
+					<tr>
+						<th><span data-prefix>Item</span></th>
+						
+						<th><span data-prefix>Rate</span></th>
+						<th><span data-prefix>Quantity</span></th>
+						<th><span data-prefix>Price</span></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for key,value in request.session.cart.items %}
+					<tr>
+						<td><span data-prefix>{{ value.name }}</span></td>
+						<td><span data-prefix></span><span data-prefix>{{ value.price }}</span></td>
+						<td><span data-prefix>{{ value.quantity }}</span></td>
+						<td>{{ value.price|multiply:value.quantity }}</td>
+					
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			
+			<table class="balance">
+				<tr>
+					
+					
+					<tfoot>
+					   
+						<tr>
+							
+							<th>Order Total</th>
+							<td id='totalsalary'></td>
+							
+						</tr>
+						
+					</tfoot>
+				</tr>
+				
+			</table>
+		</article>
+		<aside>
+			<h1><span contenteditable>Additional Notes</span></h1>
+			<div contenteditable>
+				<p>A finance charge of 1.5% will be made on unpaid balances after 30 days.</p>
+
+			</div>
+		</aside>
+		<a href="{% url 'cart_clear1' %}">back To Home</a>
+	
+		
+	</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="style1.css">
+        <title>Receipt example</title>
+    </head>
+    <body>
+		<center>
+        <button id="btnPrint" class="hidden-print" style="color:red;">
+        	<h1>Print Your Invoice</h1>
+        </button><br><br><br>
+        <script src="{% static '/js/script1.js' %}"></script>
+	<p class="lead">
+		
+	  </p>
+	</center>
+    </body>
+</html>

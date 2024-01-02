@@ -1,0 +1,126 @@
+
+{% extends "index.html" %}
+{% load static %}
+{% block content %}
+
+<!-- HEADING-BANNER END -->
+<div class="heading-banner-area overlay-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-banner">
+                    <div class="heading-banner-title">
+                        <h2>Single Product</h2>
+                    </div>
+                    <div class="breadcumbs pb-15">
+                        <ul>
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li>Single Product Detail</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- HEADING-BANNER END -->
+
+<div class="product-area single-pro-area pt-80 pb-80 product-style-2">
+    {% for i in Products %} 
+    <div class="container"> 
+        <div class="row shop-list single-pro-info no-sidebar">
+        <!-- Single-product start -->
+            <div class="col-lg-12">
+                <div class="single-product clearfix">
+                    <!-- Single-pro-slider Big-photo start -->
+                        <div class="single-pro-slider single-big-photo view-lightbox slider-for">
+                            <div>
+                                <img src="{{ i.image.url }}" alt="" />
+                                <a class="view-full-screen" href="{{ i.image.url }}"  data-lightbox="roadtrip" data-title="My caption">
+                                <i class="zmdi zmdi-zoom-in"></i>
+                                </a>
+                            </div>
+                        </div>  
+                    <!-- Single-pro-slider Big-photo end -->                                
+                        <div class="product-info">
+                            <div class="fix">
+                                <h4 class="post-title floatleft">{{ i.name }}</h4>
+                            </div>
+                        <div class="fix mb-20">
+                            <span class="pro-price">₹ {{ i.price }}</span>
+                        </div>
+                        <div class="product-description">
+                            <p>In stock : {{ i.Product_Qty }} </p>
+                        </div>
+                        
+                        {% if i.Designers_Name == "" %}
+                        
+                        {% else %}
+                        
+                        <div class="product-description">
+                            <p>Designer Name : {{ i.Designers_Name }} </p>
+                        </div>
+                        {% endif %}
+
+                        
+
+                        <div class="product-description">
+                            <p>SKU :{{ i.Product_sku }}  </p>
+                        </div>
+                        <div class="product-description">
+                            <p>Product Category :{{ i.Cat_Name }} </p>
+                        </div>
+                        <div class="cart-bottom  clearfix">
+                            <a href="{% url 'cart_add' i.id %}" class="button-one floatleft text-uppercase" data-text="Add to Cart">Add  to Cart</a>
+                        </div>
+                    <!-- Single-pro-slider Small-photo end -->
+                    </div>
+                </div>
+            </div>
+        <!-- Single-product end -->
+        </div>
+        <!-- single-product-tab start -->
+        <div class="single-pro-tab">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div class="single-pro-tab-menu">
+                        <!-- Nav tabs -->
+                        <ul class="">
+                        <li class="active"><a href="#description" data-toggle="tab">Description</a></li>
+                        <li><a href="#information" data-toggle="tab">Information</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane" id="description">
+                            <div class="pro-tab-info pro-description">
+                                <h3 class="tab-title title-border mb-30"></h3>
+                                <p>{{ i.Description }}</p>
+                            </div>
+                        </div>
+                    <div class="tab-pane" id="information">
+                        <div class="pro-tab-info pro-information">
+                            <h3 class="tab-title title-border mb-30">Product information</h3>
+                            <p>{{ i.Additional_information }}</p>
+                        </div>                                          
+                    </div>
+                                    <!--<div class="tab-pane" id="tags">
+                                        <div class="pro-tab-info pro-information">
+                                            <h3 class="tab-title title-border mb-30">tags</h3>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at est bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at est bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan egestas elese ifend. Phasellus a felis at est bibendum feugiat ut eget eni Praesent et messages in con sectetur posuere dolor non.</p>
+                                        </div>                                          
+                                    </div>-->
+                                </div>                                  
+                            </div>
+                        </div>
+                    </div>
+                    <!-- single-product-tab end -->
+                </div>
+                {% endfor %}
+            </div>
+{% endblock %}
+   

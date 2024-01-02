@@ -1,0 +1,138 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+
+ 
+<div class="slider-area">
+    <div class="slider-active owl-dot-style owl-carousel ">
+        <div class="single-slider bg-img slider-height" style="background-image:url(../static/img/slider/slider-1/1.jpg);">
+            <div class="layer-1 slider-animated-1">
+                <h2 class="animated slider-title3 text-uppercase mb-0" >Fashion show with designer</h2>
+                <h2 class="animated slider-title1 text-uppercase mb-0">the best collection</h2>
+                <p class="animated slider-pro-brief">One morning, when Gregor Samsa woke from troubled dreams nhe found himself transformed into a horrible vermin. by injected humour, or randomised words which don't look even slightly believable</p>
+                <a href="{% url 'productview' %}" class="animated button-one style-2 text-uppercase mt-15" data-text="Shop now">Shop now</a>
+            </div>
+        </div>
+        <div class="single-slider bg-img slider-height" style="background-image:url(../static/img/slider/slider-1/2.jpg);">
+                <div class="layer-1 slider-animated-1">
+                    <h2 class="animated slider-title3 text-uppercase mb-0" >colored fashion year</h2>
+                    <h2 class="animated slider-title1 text-uppercase">the new way business</h2>
+                    <p class="animated slider-pro-brief">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                    <a href="{% url 'productview' %}" class="animated button-one style-2 text-uppercase mt-15" data-text="Shop now">Shop now</a>
+                </div>
+        </div>
+        <div class="single-slider bg-img slider-height" style="background-image:url(../static/img/slider/slider-1/4.jpg);">
+            <div class="layer-1 slider-animated-1">
+                <h2 class="animated slider-title3 text-uppercase mb-0" >select your accessories</h2>
+                <h2 class="animated slider-title1 text-uppercase mb-0">your favourite scent</h2>
+                <p class="animated slider-pro-brief">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable</p>
+                <a href="{% url 'productview' %}" class="animated button-one style-2 text-uppercase mt-15" data-text="Shop now">Shop now</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="product-area pt-80 pb-35">
+    <div class="container">
+    <!-- Section-title start -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title text-center">
+                    <h2 class="title-border">Featured Products</h2>
+                </div>
+            </div>
+        </div>
+    <!-- Section-title end -->
+    <div class="row cus-row-30">
+        <div class="product-slider arrow-left-right">
+            <!-- Single-product start -->
+            {% for Products in Products %}
+                <div class="single-product col-lg-12" style="border-right:4px solid lightgray;">
+                    <div class="product-img">
+                        <a href="{% url 'viewproducts' Products.id %}"><img src="{{ Products.image.url }}" alt="" /></a>
+                            <div class="product-action clearfix">
+                                <a href="{% url 'viewproducts' Products.id %}" data-toggle="tooltip" data-placement="top" title="View Product"><i class="zmdi zmdi-favorite-outline"></i></a>
+                                <a href="{% url 'cart_add' Products.id %}" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                            </div>
+                    </div>
+                    <div class="product-info clearfix">
+                        <div class="fix">
+                            <h4 class="post-title floatleft"><a href="#">{{ Products.name }}</a></h4>
+                        </div>
+                        <div class="fix">
+                            <span class="pro-price floatleft">₹ {{ Products.price }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- BOX OF CLOTH START -->
+<div class="discount-product-area">
+    <div class="container">
+        <div class="row">
+            <div class="discount-product-slider dots-bottom-right">
+                <!-- box of cloth start -->
+                <div class="col-lg-12">
+                    <div class="discount-product">
+                        <div class="discount-img">
+                            <img src="{% static 'img/discount/1.jpg' %}" alt="" />
+                        </div>
+                    <div class="discount-img-brief">
+                        <div class="discount-info">
+                            <h1 class="text-dark-red hidden-xs">Grab Box of Cloth</h1>
+                            <p class="hidden-xs">Just call our designer and got surpise box.</p>
+                            <a href="{% url 'Designerview' %}" class="button-one font-16px style-3 text-uppercase mt-5" data-text="Buy now">Grab Deal</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <!-- BOX OF CLOTH end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="product-area pt-80 pb-35">
+    <div class="container">
+    <!-- Section-title start -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title text-center">
+                    <h2 class="title-border">Top Selling Products</h2>
+                </div>
+            </div>
+        </div>
+    <!-- Section-title end -->
+    <div class="row cus-row-30">
+        <div class="product-slider arrow-left-right">
+        <!-- Single-product start -->
+        {% for Products in Products1 %}
+            <div class="single-product col-lg-12" style="border-right:4px solid lightgray;">
+                <div class="product-img">
+                    <a href="{% url 'viewproducts' Products.id %}"><img src="{{ Products.image.url }}" alt="" /></a>
+                        <div class="product-action clearfix">
+                            <a href="{% url 'viewproducts' Products.id %}" data-toggle="tooltip" data-placement="top" title="View Product"><i class="zmdi zmdi-favorite-outline"></i></a>
+                            <a href="{% url 'cart_add' Products.id %}" data-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                        </div>
+                </div>
+            <div class="product-info clearfix">
+                <div class="fix">
+                    <h4 class="post-title floatleft"><a href="#">{{ Products.name }}</a></h4>
+                </div>
+                <div class="fix">
+                    <span class="pro-price floatleft">₹ {{ Products.price }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
+

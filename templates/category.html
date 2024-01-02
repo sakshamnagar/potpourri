@@ -1,0 +1,99 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+
+<!-- HEADING-BANNER END -->
+<div class="heading-banner-area overlay-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-banner">
+                    <div class="heading-banner-title">
+                        <h2>Shop</h2>
+                    </div>
+                    <div class="breadcumbs pb-15">
+                        <ul>
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li>Shop</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- HEADING-BANNER END -->
+
+<div class="product-area pt-80 pb-80 product-style-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-12 col-xs-12">
+                <!-- Widget-Search start -->
+                <aside class="widget widget-search mb-30">
+                    <form action="{% url 'search_results' %}">
+                        <input type="text" name="q" placeholder="Search here..." />
+                            <button type="submit">
+                                <i class="zmdi zmdi-search"></i>
+                            </button>
+                    </form>
+                </aside>
+                <!-- Widget-search end -->
+    
+                <!-- Widget-Categories start -->
+                <aside class="widget widget-categories  mb-30">
+                    <div class="widget-title">
+                        <h4>Categories</h4>
+                    </div>
+                    <div id="cat-treeview" class="widget-info product-cat boxscrol2">
+                        <ul>
+                        {% for i in category_list %}
+                            <li style="font-size: 19px;padding: 4px;"><a href="{% url 'ProductWithCategory' i.id %}">{{ i.Cat_Name }}</a></span>
+                        {% endfor %} 
+                        </ul>
+                    </div>
+                </aside>
+                <!-- Widget-categories end -->
+                
+                <!-- Widget-banner start -->
+                    <aside class="widget widget-banner hidden-sm">
+                        <div class="widget-info widget-banner-img">
+                            <a href="#"><img src="img/banner/5.jpg" alt="" /></a>
+                        </div>
+                    </aside>
+                <!-- Widget-banner end -->
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+                <div class="shop-content mt-tab-30 mt-xs-30">
+                    <div class="product-option mb-30 clearfix">
+                    </div>
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="grid-view">                            
+                            <div class="row">
+                                <!-- Single-product start -->
+                                {% for i in Productview %}
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                    <div class="single-product" style="box-shadow: 0px 0px 0px 3px #e03550;">
+                                        <div class="product-img">
+                                            <span class="pro-price-2">₹ {{i.price }}</span>
+                                            <a href="{% url 'viewproducts' i.id %}"><img src="{{ i.image.url }}" alt="" /></a>
+                                        </div>
+                                    <div class="product-info clearfix text-center">
+                                    <div class="fix">
+                                        <h4 class="post-title"><a href="#">{{i.name }}</a></h4>
+                                    </div>
+                                </div>
+                            </div><br>
+                        </div>
+                        {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

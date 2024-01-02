@@ -1,0 +1,358 @@
+{% load static %}
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Home || Pot Pourri</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/potpuri.png' %}">
+    
+    <!-- all css here -->
+    <!-- bootstrap v3.3.6 css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <!-- jquery-ui.min css -->
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}">
+    <!-- meanmenu css -->
+    <link rel="stylesheet" href="{% static 'css/meanmenu.min.css' %}">
+    <!-- owl carousel css -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <!-- slick css -->
+    <link rel="stylesheet" href="{% static 'css/slick1.css' %}">
+    <!-- lightbox css -->
+    <link rel="stylesheet" href="{% static 'css/lightbox.min.css' %}">
+    <!-- material-design-iconic-font css -->
+    <link rel="stylesheet" href="{% static 'css/material-design-iconic-font1.css' %}">
+    <!-- All common css of theme -->
+    <link rel="stylesheet" href="{% static 'css/default2.css' %}">
+    <!-- style css -->
+    <link rel="stylesheet" href="{% static 'style5.css' %}">
+    <!-- shortcode css -->
+    <link rel="stylesheet" href="{% static 'css/shortcode.css' %}">
+    <!-- responsive css -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <!-- modernizr css -->
+    <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <!-- WRAPPER START -->
+    <div class="wrapper">
+      <!-- HEADER-AREA START -->
+      <header>
+        <!-- Header Top start -->
+        <div class="header-top">
+          <div class="container">
+            <div class="row">
+              <div class="col-xs-12 col-sm-6">
+                <div class="welcome-mes">
+                  <p>Welcome To Our Cloth store ...</p>
+                </div>
+              </div>
+              
+{% if user.is_authenticated %}
+              <div class="col-xs-12 col-sm-6">
+                <div class="header-right-menu text-right">
+                  <ul>
+                    <li><a href="#">Account</a><i class="zmdi zmdi-chevron-down"></i>
+                      <ul>
+                        <li><a href="{% url 'myaccount' %}">My Account</a></li>
+                   
+                        <li><a href="{% url 'cart_detail' %}">My Cart</a></li>
+
+                        
+                      
+                        <li><a href="{% url 'myorder' %}">Order</a></li>
+                        
+                        <li><a href="{% url 'changepassword' %}">Change Password</a></li>
+
+                        <li><a href="{% url 'logout_view' %}">Logout</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>                
+              </div>
+{% endif %}
+            </div>
+          </div>
+        </div>
+        <!-- Header Top End -->
+        <!-- Header Bottom Menu Area Start -->
+        <div id="sticky-menu" class="header-bottom">
+          <div class="container">
+            <div class="row">
+              <!-- logo start -->
+              <div class="col-md-2 col-sm-2 col-xs-6">
+                <div class="top-logo">
+                  <a href="{% url 'index' %}"><h1 class="fw-bold" style="font-family: fantasy;">PotPourri</h1></a>
+                </div>
+              </div>
+              <!-- logo end -->
+              <!-- mainmenu area start -->
+              <div class="col-md-10 col-xs-6 col-sm-10 text-right">
+                <!-- Menu Area -->
+                <div class="mainmenu">
+                  <nav>
+                    <ul>
+                      <li class="expand"><a href="{% url 'index' %}">Home</a></li>
+                      <li class="expand"><a href="{% url 'aboutus' %}">About</a></li>
+                      <li class="expand"><a href="{% url 'Designerview' %}">Designer</a></li>
+                      <li class="expand"><a href="{% url 'productview' %}">Shop</a></li>
+                      {% if user.is_authenticated %}
+                      
+                      {% else %}
+                      <li class="expand"><a href="{% url 'adminlogin' %}">Login</a></li>
+                      <li><a href="{% url 'register' %}">Register</a></li>
+                      {% endif %}
+                      <li class="expand"><a href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                  </nav>
+                </div>
+                <!-- Menu Area -->
+                <!-- Menu Cart Area Start -->
+                <div class="mini-cart text-right">
+                  <ul>
+                    <li>
+                      <a class="cart-icon" href="#">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                        <span>{{request.session.cart|length}}</span>
+                      </a>
+                      <div class="mini-cart-brief text-left">
+                        <div class="cart-items">
+                          <p class="mb-0">You have <span>{{request.session.cart|length}} items</span> in your shopping bag</p>
+                        </div>
+                        {% for key,value in request.session.cart.items %}
+                        <div class="all-cart-product clearfix">
+                          <div class="single-cart clearfix">
+                            <div class="cart-photo">
+                              <a href="#"><img src="{{ value.image }}" alt="" /></a>
+                            </div>
+                            <div class="cart-info">
+                              <h5><a href="#">{{ value.name }}</a></h5>
+                              <p class="mb-0">Price : ₹ {{ value.price }}</p>
+                              <p class="mb-0">Qty : {{ value.quantity }} </p>
+                              <span class="cart-delete"><a href="{% url 'cart_clear' value.product_id %}"><i class="zmdi zmdi-close"></i></a></span>
+                            </div>
+                          </div>
+                        </div>
+                        {% endfor %} 
+                      
+                        <div class="cart-bottom  clearfix">
+                          <a href="{% url 'cart_detail' %}" class="button-one floatleft text-uppercase" data-text="View cart">View cart</a>
+                          <a href="{% url 'checkout' %}" class="button-one floatright text-uppercase" data-text="Check out">Check out</a>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Menu Cart Area End -->
+              </div>
+              <!-- mainmenu area end -->
+            </div>
+          </div>
+        </div>
+        <!-- Header Menu Bottom Area Start -->
+        <!-- Mobile-menu start -->
+        <div class="mobile-menu-area">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-12 hidden-lg hidden-md hidden-sm">
+                <div class="mobile-menu">
+                  <nav id="dropdown">
+                    <ul>
+                      <li><a href="{% url 'index' %}">home</a></li>
+                      <li><a href="shop.html">products</a></li>
+                      <li><a href="shop-sidebar.html">accesories</a></li>
+                      <li><a href="shop-list.html">lookbook</a></li>
+                      <li><a href="#">pages</a>
+                        <ul>
+                          <li><a href="shop.html">Shop</a></li>
+                          <li><a href="shop-sidebar.html">Shop Sidebar</a></li>
+                          <li><a href="shop-list.html">Shop List</a></li>
+                          <li><a href="single-product.html">Single Product</a></li>
+                          <li><a href="single-product-sidebar.html">Single Product Sidebar</a></li>
+                          <li><a href="cart.html">Shopping Cart</a></li>
+                          <li><a href="wishlist.html">Wishlist</a></li>
+                          <li><a href="checkout.html">Checkout</a></li>
+                          <li><a href="order.html">Order</a></li>
+                          <li><a href="login.html">login / Registration</a></li>
+                          <li><a href="my-account.html">My Account</a></li>
+                          <li><a href="404.html">404</a></li>
+                          <li><a href="{% url 'aboutus' %}">About Us</a></li>
+                          <li><a href="{% url 'contact' %}">Contact</a></li>
+                        </ul>
+                      </li>
+                      <li><a href="{% url 'aboutus' %}">about us</a></li>
+                      <li><a href="{% url 'contact' %}">contact</a></li>
+                    </ul>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
+        <!-- Mobile-menu end --> 
+      </header>
+   
+
+
+{% block content %} {% endblock %}
+
+  <footer>
+        <!-- Footer-area start -->
+        <div class="footer-area footer-2">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
+                <div class="single-footer">
+                  <h3 class="footer-title  title-border">Contact Us</h3>
+                  <ul class="footer-contact">
+                    <li><span>Address :</span>FF/21,JBR ARCADE,OPP.SATYAM COMPLEX,<br>SCIENCE CITY 
+                                              ROAD,SOLA,A'BAD-380060</li>
+                    <li><span>Phone :</span>9725900061</li>
+                    <li><span>Email :</span>admin@admin.com</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                <div class="single-footer">
+                  <h3 class="footer-title  title-border">accounts</h3>
+                  <ul class="footer-menu">
+                    <li><a href="{% url 'myaccount' %}"><i class="zmdi zmdi-dot-circle"></i>My Account</a></li>
+                    <li><a href="{% url 'myorder' %}"><i class="zmdi zmdi-dot-circle"></i>My Orders</a></li>
+                    <li><a href="{% url 'cart_detail' %}"><i class="zmdi zmdi-dot-circle"></i>My Cart</a></li>
+                    <li><a href="{% url 'adminlogin' %}"><i class="zmdi zmdi-dot-circle"></i>Sign In</a></li>
+                    <li><a href="{% url 'checkout' %}"><i class="zmdi zmdi-dot-circle"></i>Check out</a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                <div class="single-footer">
+                  <h3 class="footer-title  title-border">Sitemap</h3>
+                  <ul class="footer-menu">
+                    <li><a href="{% url 'index' %}"><i class="zmdi zmdi-dot-circle"></i>Home</a></li>
+                    <li><a href="{% url 'aboutus' %}"><i class="zmdi zmdi-dot-circle"></i>About</a></li>
+                    <li><a href="{% url 'productview' %}"><i class="zmdi zmdi-dot-circle"></i>Shop</a></li>
+                    <li><a href="{% url 'contact' %}"><i class="zmdi zmdi-dot-circle"></i>Contact</a></li>
+                    <li><a href="{% url 'cart_detail' %}"><i class="zmdi zmdi-dot-circle"></i>Cart</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Footer-area end -->
+
+        <!-- Copyright-area start -->
+        <div class="copyright-area copyright-2">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6 col-xs-12">
+                <div class="copyright">
+                  <p class="mb-0">&copy; Pot Pourri 2021. All Rights Reserved.</p>
+                </div>
+              </div>
+              <div class="col-sm-6 col-xs-12">
+                <div class="payment  text-right">
+                  <a href="#"><img src="{% static 'img/payment/1.png' %}" alt="" /></a>
+                  <a href="#"><img src="{% static 'img/payment/2.png' %}" alt="" /></a>
+                  <a href="#"><img src="{% static 'img/payment/3.png' %}" alt="" /></a>
+                  <a href="#"><img src="{% static 'img/payment/4.png' %}" alt="" /></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Copyright-area start -->
+      </footer>
+      <!-- FOOTER END -->
+      <!-- QUICKVIEW PRODUCT -->
+      <div id="quickview-wrapper">
+         <!-- Modal -->
+         <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">
+                <div class="modal-product">
+                  <div class="product-images">
+                    <div class="main-image images">
+                      <img alt="#" src="{}img/product/quickview-photo.jpg"/>
+                    </div>
+                  </div><!-- .product-images -->
+
+                  <div class="product-info">
+                    <h1>Aenean eu tristique</h1>
+                    <div class="price-box-3">
+                      <hr />
+                      <div class="s-price-box">
+                        <span class="new-price">₹160.00</span>
+                        <span class="old-price">₹190.00</span>
+                      </div>
+                      <hr />
+                    </div>
+                    <a href="shop.html" class="see-all">See all features</a>
+                    <div class="quick-add-to-cart">
+                      <form method="post" class="cart">
+                        <div class="numbers-row">
+                          <input type="number" id="french-hens" value="3">
+                        </div>
+                        <button class="single_add_to_cart_button" type="submit">Add to cart</button>
+                      </form>
+                    </div>
+                    <div class="quick-desc">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero.
+                    </div>
+                    </div><!-- .product-info -->
+                </div><!-- .modal-product -->
+              </div><!-- .modal-body -->
+            </div><!-- .modal-content -->
+          </div><!-- .modal-dialog -->
+         </div>
+         <!-- END Modal -->
+      </div>
+      <!-- END QUICKVIEW PRODUCT -->
+
+    </div>
+    <!-- WRAPPER END -->
+
+    <!-- all js here -->
+    <!-- jquery latest version -->
+    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <!-- bootstrap js -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- jquery.meanmenu js -->
+    <script src="{% static 'js/jquery.meanmenu.js' %}"></script>
+    <!-- slick.min js -->
+    <script src="{% static 'js/slick.min.js' %}"></script>
+    <!-- jquery.treeview js -->
+    <script src="{% static 'js/jquery.treeview.js' %}"></script>
+    <!-- lightbox.min js -->
+    <script src="{% static 'js/lightbox.min.js' %}"></script>
+    <!-- jquery-ui js -->
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <!-- owl.carousel js -->
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <!-- jquery.nicescroll.min js -->
+    <script src="{% static 'js/jquery.nicescroll.min.js' %}"></script>
+    <!-- countdon.min js -->
+    <script src="{% static 'js/countdon.min.js' %}"></script>
+    <!-- wow js -->
+    <script src="{% static 'js/wow.min.js' %}"></script>
+    <!-- plugins js -->
+    <script src="{% static 'js/plugins.js' %}"></script>
+    <!-- main js -->
+    <script src="{% static 'js/main.js' %}"></script>
+  </body>
+</html>
+
+
+
+    
+

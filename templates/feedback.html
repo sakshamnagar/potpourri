@@ -1,0 +1,186 @@
+{% extends "index.html" %}
+{% load static %}
+{% block content %}
+
+<script type="text/javascript">
+    function validation()
+    {
+        var errorflag = false;
+        var focusOn = '';
+        
+        var fname = document.FeedbackForm.First_Name.value;
+        var lname = document.FeedbackForm.Last_Name.value;
+        var email = document.FeedbackForm.Email.value;
+        var comment = document.FeedbackForm.Comment.value;
+  
+    if(fname == "")
+    {
+        document.getElementById("fnameRequired").style.display ='';
+        document.getElementById("fnameInvalid").style.display ='none';
+        if(!focusOn)
+        {
+            focusOn=document.FeedbackForm.First_Name;
+        }       
+        errorflag = true;
+    }
+    else
+    {
+        document.getElementById("fnameRequired").style.display ='none';
+        document.getElementById("fnameInvalid").style.display ='none';
+        if(fname.search(/^[a-zA-Z ]+$/)==-1)
+        {
+            document.getElementById("fnameRequired").style.display ='none';
+            document.getElementById("fnameInvalid").style.display ='';
+            if(!focusOn)
+            {
+                focusOn=document.FeedbackForm.First_Name;
+            }
+            errorflag = true;
+        }
+        else
+        {
+            document.getElementById("fnameRequired").style.display ='none';
+            document.getElementById("fnameInvalid").style.display ='none';
+        }
+    }
+
+
+    if(lname == "")
+    {
+        document.getElementById("lnameRequired").style.display ='';
+        document.getElementById("lnameInvalid").style.display ='none';
+        if(!focusOn)
+        {
+            focusOn=document.FeedbackForm.Last_Name;
+        }       
+        errorflag = true;
+    }
+    else
+    {
+        document.getElementById("lnameRequired").style.display ='none';
+        document.getElementById("lnameInvalid").style.display ='none';
+        if(lname.search(/^[a-zA-Z ]+$/)==-1)
+        {
+            document.getElementById("lnameRequired").style.display ='none';
+            document.getElementById("lnameInvalid").style.display ='';
+            if(!focusOn)
+            {
+                focusOn=document.FeedbackForm.Last_Name;
+            }
+            errorflag = true;
+        }
+        else
+        {
+            document.getElementById("lnameRequired").style.display ='none';
+            document.getElementById("lnameInvalid").style.display ='none';
+        }
+    }
+
+
+    if(email == "")
+    {                          
+        document.getElementById("Email").style.display ='';
+        document.getElementById("EmailValid").style.display ='none';
+        if(!focusOn)
+        {
+            focusOn=document.FeedbackForm.Email;
+        }       
+        errorflag = true;
+    }
+    else
+    {
+        document.getElementById("Email").style.display ='none';
+        document.getElementById("EmailValid").style.display ='none';
+        if(email.search(/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/)==-1)
+        { 
+            document.getElementById("Email").style.display ='none';         
+            document.getElementById("EmailValid").style.display ='';
+            if(!focusOn)
+            {
+                focusOn=document.FeedbackForm.Email;
+            }
+            errorflag = true;
+        }
+        else
+        {
+            document.getElementById("Email").style.display ='none';
+            document.getElementById("EmailValid").style.display='none';
+        }   
+    }
+
+    if(comment == "")
+    {                            
+    document.getElementById("cmtRequired").style.display ='';
+    if(!focusOn)
+    {
+        focusOn=document.FeedbackForm.Comment;
+    }       
+    errorflag = true;
+    }
+    else
+    {
+        document.getElementById("cmtRequired").style.display ='none';           
+    }
+   
+   
+    if(focusOn)
+    {
+        focusOn.focus();
+    }
+    if(errorflag == true)
+        return false;                       
+    else
+        return true;
+    }
+    
+
+      </script>
+
+
+<main>
+
+   
+
+<!-- login Area Strat-->
+<section class="login-area pt-10 pb-10"></section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="basic-login">
+                    <h3 class="text-center mb-60">Give Your Feedback</h3>
+                    <form action="" name="FeedbackForm" enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        <span style="color:red;display: none;" id="fnameRequired">Enter the First Name</span>
+                        <span style="color:red;display: none;" id="fnameInvalid">Enter only Character</span>
+                        <label for="name"><b><h5>First Name</h5></b></label>
+                        {{ forms.First_Name }}
+                        <span style="color:red;display: none;" id="lnameRequired">Enter the Last Name</span>
+                        <span style="color:red;display: none;" id="lnameInvalid">Enter only Character</span>
+                        <label for="name"><b><h5>Last Name</h5></b></label>
+                        <!--<input id="name" type="text" placeholder="Enter Username or Email address..." />-->
+                        {{ forms.Last_Name }}
+                        <span style="color:red;display: none;" id="Email">Enter Your Email</span>
+                        <span style="color:red;display: none;" id="EmailValid">Enter Valid Email</span>
+                        <label for="name"><b><h5>Email</h5></b></label>
+                        {{ forms.Email }}
+                        <span style="color:red;display: none;" id="cmtRequired">Enter the Comment</span>
+                        <label for="name"><b><h5>Comment</h5></b></label>
+                        {{ forms.Comment }}
+                        
+                          
+                        </div>
+                        <input type="submit" onclick="return validation()" class="c-btn theme-btn-2 w-100"  value="Submit">
+                       
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- login Area End-->
+
+</main>
+
+{% endblock %}
+

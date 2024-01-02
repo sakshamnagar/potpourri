@@ -1,0 +1,67 @@
+{% extends "index.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="product-area pt-80 pb-80 product-style-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-12 col-xs-12">
+            <!-- Widget-Search start -->
+                <aside class="widget widget-search mb-30">
+                    <form action="{% url 'search_results' %}">
+                        <input type="text" name="q" placeholder="Search here..." />
+                        <button type="submit">
+                        <i class="zmdi zmdi-search"></i>
+                        </button>
+                    </form>
+                </aside>
+                <aside class="widget widget-banner hidden-sm">
+                    <div class="widget-info widget-banner-img">
+                        <a href="#"><img src="img/banner/5.jpg" alt="" /></a>
+                    </div>
+                </aside>
+            <!-- Widget-banner end -->
+            </div>
+            <div class="col-md-9 col-sm-12 col-xs-12">
+            <!-- Shop-Content End -->
+            <div class="shop-content mt-tab-30 mt-xs-30">
+                <div class="product-option mb-30 clearfix">
+                <!-- Nav tabs -->
+                <ul class="shop-tab">
+                     
+                </ul>
+                
+            </div>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="grid-view">                            
+                        <div class="row">
+                            <!-- Single-product start -->
+                            {% for i in object_list %}
+                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                <div class="single-product">
+                                    <div class="product-img">
+                                        <span class="pro-price-2">₹ {{i.price }}</span>
+                                        <a href="{% url 'viewproducts' i.id %}"><img src="{{ i.image.url }}" alt="" /></a>
+                                    </div>
+                                <div class="product-info clearfix text-center">
+                                <div class="fix">
+                                    <h4 class="post-title"><a href="#">{{i.name }}</a></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                            {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Shop-Content End -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

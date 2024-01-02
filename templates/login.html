@@ -1,0 +1,72 @@
+{% extends "index.html" %}
+{% load static %}
+{% block content %}
+<style>
+.row .offset-lg-2{
+      background-color: lightgrey;
+    display: block;
+    padding: 21px;
+    border-radius: 5px;
+    border: 3px solid #e03550;
+}
+input{
+        border: 3px solid #808080;
+}
+input:focus{
+    border:3px solid #e03550;
+}
+
+</style>
+<main>
+<!-- HEADING-BANNER END -->
+<div class="heading-banner-area overlay-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-banner">
+                    <div class="heading-banner-title">
+                        <h2>Login</h2>
+                    </div>
+                    <div class="breadcumbs pb-15">
+                        <ul>
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li>Login</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- HEADING-BANNER END -->
+<!-- login Area Strat-->
+<section class="login-area pt-20 pb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2" style="margin-left: 18%;">
+                <div class="basic-login">
+                    <h3 class="text-center mb-60">Login From Here</h3>
+                    <form action="" method="POST">
+                    {% csrf_token %}
+                    <label for="name"><b><h5>Email</h5></b></label>
+                    <input id="name" type="text" name="username" placeholder="Enter User Name..." />
+                    <label for="pass"><b><h5>Password</h5></b></label>
+                    <input id="pass" type="password"  name="password" placeholder="Enter password..." />
+                    <div class="login-action mb-20 fix">
+                    <span class="forgot-login f-right">
+                        <a href="{% url 'reset_password' %}">Forget Password</a>
+                    </span>
+                </div>
+                <input type="submit" class="button-one submit-button mt-15" data-text="Submit" style="margin-left: 42%;" value="Submit">
+                    {{ msg }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- login Area End-->
+
+</main>
+
+{% endblock %}

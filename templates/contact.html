@@ -1,0 +1,107 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+<style>
+input[type="text"],input[type="password"],input[type='email'],input[type='textarea']{
+            border: 3px solid lightgrey;
+}
+input:focus{
+    border:3px solid #e03550;
+}
+textarea:focus{
+    border:3px solid #e03550;
+}
+</style>
+<!-- HEADING-BANNER END -->
+<div class="heading-banner-area overlay-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-banner">
+                    <div class="heading-banner-title">
+                        <h2>Contact Us</h2>
+                    </div>
+                    <div class="breadcumbs pb-15">
+                        <ul>
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li>Contact Us</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- HEADING-BANNER END -->
+
+
+<!-- contact-us-AREA START -->
+<div class="contact-us-area  pt-80 pb-80">
+    <div class="container"> 
+        <div class="contact-us customer-login bg-white">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12" >
+                    <div class="contact-details" style="border: 4px solid #e03550;padding: 37px;">
+                        <h4 class="title-1 title-border text-uppercase mb-30">Contact Details</h4>
+                            <ul>
+                                <li>
+                                    <i class="zmdi zmdi-pin"></i>
+                                    <span>FF/21,JBR ARCADE,OPP.SATYAM COMPLEX,</span>
+                                    <span>SCIENCE CITY ROAD,SOLA,AHMEDABAD-380060</span>
+                                </li>
+                                <li>
+                                    <i class="zmdi zmdi-phone"></i>
+                                    <span>9725900061</span>
+                                    <span>7573605021</span>
+                                </li>
+                                <li>
+                                    <i class="zmdi zmdi-email"></i>
+                                    <span>admin@admin.com</span>
+                                </li>
+                            </ul>
+                    </div>
+                    <div class="send-message mt-60" style="border: 4px solid #e03550;padding: 37px;">
+                        <form action="." method="post" class="d-flex align-items-center">
+                            <h4 class="title-1 title-border text-uppercase mb-30">send message</h4>
+                            {% csrf_token %}
+                            <div>
+                                <label>Enter Your Name</label>
+                                {{forms.Name}}
+                            </div>
+                            <div>
+                                <label>Enter Your Email</label> 
+                                {{forms.Email}}
+                            </div>
+                            <br>
+                            <div>
+                                <label>Enter Your Subject</label>
+                                {{forms.Subject}}
+                            </div>
+                            <div>
+                                <label>Enter Your Message</label>
+                                {{forms.Message}}
+                            </div>
+                              <!--   <input type="text" name="name" placeholder="Your name here..." />
+                                <input type="text" name="email" placeholder="Your email here..." />
+                                <textarea class="custom-textarea" style="border: 3px solid lightgrey;" name="message" placeholder="Your comment here..."></textarea> -->
+                                <button class="button-one submit-button mt-20" data-text="submit message" type="submit" style="margin-left:35%;">Submit message</button>
+                                {{msg}}
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+     </div>
+   </div>
+</div>
+{% endblock %}
+
+
+
+

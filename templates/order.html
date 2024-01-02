@@ -1,0 +1,113 @@
+{% extends "index.html" %}
+
+{% load static %}
+
+{% block content %}
+<main>
+<!-- HEADING-BANNER END -->
+<div class="heading-banner-area overlay-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="heading-banner">
+                    <div class="heading-banner-title">
+                        <h2>My Order</h2>
+                    </div>
+                    <div class="breadcumbs pb-15">
+                        <ul>
+                            <li><a href="{% url 'index' %}">Home</a></li>
+                            <li>My Order</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- HEADING-BANNER END -->
+    <!-- login Area Strat-->
+    <section class="login-area pt-100 pb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="">
+                        <h3 class="text-center mb-60">My Order</h3>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                   
+
+<style type="text/css">
+.profile{
+margin:auto;
+box-shadow: 0px 12px 20px 0px #cccccceb;
+}
+
+.profile img{
+border-radius:100%;
+border:2px solid lightgray;
+width:60%;
+}
+
+.profile .card-body{
+text-align:center;
+}
+</style>
+            <div class="list-group ">
+              <a href="#" class="list-group-item list-group-item-action">Welcome {{ user.username }}</a>
+							<a href="{% url 'myaccount' %}" class="list-group-item list-group-item-action ">My Account</a>
+              <a href="{% url 'myorder' %}" class="list-group-item list-group-item-action ">My Order</a>
+              <a href="{% url 'changepassword' %}" class="list-group-item list-group-item-action ">Change Password</a>
+            </div> 
+        </div>
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+                 <h4>Order List</h4>
+                  <hr>
+                </div>
+              </div>
+            <div class="row">
+          <div class="col-md-12" style="border: 4px solid #e03550;">
+        <table class="table">
+        <thead>
+          <tr>
+            <th class="cart-product-name">Product</th>
+            <th class="product-price">Unit Price</th>
+            <th class="product-subtotal">Total</th>
+          </tr>
+        </thead>
+		
+        <tbody>
+          
+            {% for i in oderlist %} 
+		  <tr>
+		
+          <td class="product-name"><a href="#">{{ i.Product_Name }}</a></td>
+          <td class="product-price"><span class="amount">{{i.product_total}}</span></td>
+          <td class="product-subtotal"><span class="amount">{{ i.product_total }}</span></td>
+          {% endfor %}  </tr>
+		 
+        
+        </tbody> 
+		
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- login Area End-->
+
+</main>
+{% endblock %}
+
